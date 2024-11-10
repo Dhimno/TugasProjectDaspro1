@@ -109,15 +109,6 @@ print(
         ],
     )
 )
-print(
-    MakeSpecialSetMhs(
-        MakeMhs(24060124120014, "Woof", "F", makeNilai([90, 100, 80])),
-        [
-            MakeMhs(24060124120014, "Mooo", "F", makeNilai([90, 100, 80])),
-            MakeMhs(24060124120015, "Quack", "F", makeNilai([90, 100, 80])),
-        ],
-    )
-)
 # B (MAHASISWA YANG LULUS)
 def MhsLulus(H):
     if IsEmpty(H):
@@ -131,14 +122,14 @@ def MhsLulus(H):
 print(
     MhsLulus(
         [
-            MakeMhs("001", "Andi", "C", [90, 90, 90, 95]),
-            MakeMhs("011", "Budi", "C", [60, 50, 70, 85, 72]),
-            MakeMhs("003", "Caca", "B", [80, 90]),
-            MakeMhs("004", "Doni", "C", []),
-            MakeMhs("001", "Eko", "A", []),
-            MakeMhs("005", "Fira", "B", [80, 92]),
-            MakeMhs("003", "Gatot", "A", []),
-            MakeMhs("007", "Hima", "C", []),
+            MakeMhs("001", "Jack", "C", [60, 50, 70, 85, 72]),
+            MakeMhs("011", "Kala", "C", [90]),
+            MakeMhs("003", "Huna", "B", [80, 90]),
+            MakeMhs("004", "Ma", "C", [90]),
+            MakeMhs("001", "Tata", "A", []),
+            MakeMhs("005", "Sang", "B", [80, 92]),
+            MakeMhs("003", "Peselancar", "A", []),
+            MakeMhs("007", "Handal", "C", []),
         ]
     )
 )
@@ -154,7 +145,7 @@ def TdkMngrjknKuis(L):
     else:
         return TdkMngrjknKuis(Tail(L))  # Jika mahasiswa mengerjakan kuis, lanjutkan ke elemen berikutnya tanpa menambahkannya ke hasil
 # Aplikasi
-print("Mahasiswa yang tidak mengerjakan kuis:", TdkMngrjknKuis(([MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([])), MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90]))])))
+print("Mahasiswa yang tidak mengerjakan kuis:", TdkMngrjknKuis(([MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([])), MakeMhs('24060124120033', 'Dhimas Reza', 'B', makeNilai([90]))])))
 
 # D (NILAI TERTINGGI (SEMUA KELAS))
 # Fungsi untuk mendapatkan mahasiswa dengan nilai tertinggitanpa 
@@ -169,7 +160,7 @@ def NilaiTertinggi(L):
         return NilaiTertinggi(Tail(L))
         
 # Aplikasi
-print("Mahasiswa dengan nilai tertinggi:", NilaiTertinggi(([MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([85])), MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90]))])))
+print("Mahasiswa dengan nilai tertinggi:", NilaiTertinggi(([MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([85])), MakeMhs('24060124120033', 'Dhimas Reza', 'B', makeNilai([90]))])))
 
 
 # E (NILAI TERTINGGI (KELAS TERTENTU))
@@ -183,20 +174,11 @@ def Nilaitertinggisesuaikelas(L, kelas):
         return Nilaitertinggisesuaikelas(Tail(L), kelas) # Jika kelas tidak sesuai, lanjutkan dengan mahasiswa berikutnya
 
 # Aplikasi
-print( makemhssesuaikelas([
+print(Nilaitertinggisesuaikelas([
     MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([85])), 
-    MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90])),
+    MakeMhs('24060124120033', 'Dhimas Reza', 'B', makeNilai([90])),
     MakeMhs('24060124120034', 'Andi', 'A', makeNilai([95]))
 ], 'B'))
-
-print("Mahasiswa dengan nilai tertinggi di kelas B", Nilaitertinggisesuaikelas([
-    MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([85])), 
-    MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90])),
-    MakeMhs('24060124120034', 'Andi', 'A', makeNilai([95]))
-], 'B'))
-
-
-
 
 # F (JUMLAH MAHASISWA TIDAK KUIS (SEMUA KELAS))
 def JumlahMahasiswaTidakKuis(L):
@@ -210,7 +192,7 @@ def JumlahMahasiswaTidakKuis(L):
 # Aplikasi
 print(JumlahMahasiswaTidakKuis([
     MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([])),
-    MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90])),
+    MakeMhs('24060124120033', 'Dhimas Reza', 'B', makeNilai([90])),
     MakeMhs('24060124120034', 'Andi', 'A', makeNilai([])),
     MakeMhs('24060124120035', 'Budi', 'C', makeNilai([])),
     MakeMhs('24060124120036', 'Cici', 'D', makeNilai([])),
@@ -231,16 +213,15 @@ def BanyakLulus(H):
 print(
     BanyakLulus(
         [
-            MakeMhs("001", "Andi", "C", [90, 90, 90, 95]),
-            MakeMhs("011", "Budi", "C", [60, 50, 70, 85, 72]),
-            MakeMhs("003", "Caca", "B", [80, 90]),
-            MakeMhs("004", "Doni", "C", []),
-            MakeMhs("001", "Eko", "A", []),
-            MakeMhs("005", "Fira", "B", [80, 92]),
-            MakeMhs("003", "Gatot", "A", []),
-            MakeMhs("007", "Hima", "C", []),
+            MakeMhs("001", "Jack", "C", [60, 50, 70, 85, 72]),
+            MakeMhs("011", "Kala", "C", [90]),
+            MakeMhs("003", "Huna", "B", [80, 90]),
+            MakeMhs("004", "Ma", "C", [90]),
+            MakeMhs("001", "Tata", "A", []),
+            MakeMhs("005", "Sang", "B", [80, 92]),
+            MakeMhs("003", "Peselancar", "A", []),
+            MakeMhs("007", "Handal", "C", []),
         ]
     )
 )
-
 
