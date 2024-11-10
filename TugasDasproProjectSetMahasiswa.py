@@ -3,8 +3,6 @@
 # Kelompok  : 24060124120010/Dhimas Reza Nafi Wahyudi, Anggota 2, Anggota 3, Anggota 4, Anggota 5
 # Tanggal   : 10/11/2024
 
-from listFunction import *
-
 # Bagian 1
 # Nomor 1 (Realisasi Selektor)
 def getNIM(L): # Selektor untuk mengambil NIM dari mahasiswa
@@ -31,7 +29,31 @@ def Tail(L):
         return None
     else: 
         return L[1:]
+
+def FirstElmt(L):
+    if IsEmpty(L):
+        return None
+    else: 
+        return L[0]
+
+def SumElmt(L):
+    if IsEmpty(L):
+        return 0
+    else:
+        return FirstElmt(L) + SumElmt(Tail(L))
     
+def NbElmt(L):
+    if IsEmpty(L):
+        return 0 
+    else: 
+        return 1 + NbElmt(Tail(L))
+
+def AvgElmt(L):
+    if NbElmt(L) == 0:
+        return 0
+    else:
+        return int(SumElmt(L) / NbElmt(L))
+
 def MaxElmt(L):
     if IsEmpty(L):  # Basis: Jika list mahasiswa kosong, kembalikan nilai 0
         return 0
@@ -41,6 +63,15 @@ def MaxElmt(L):
         return MaxElmt(Tail(L))
     else:  # Jika nilai mahasiswa pertama lebih besar atau sama, kembalikan nilai tersebut
         return FirstElmt(getNilai(getFirstMhs(L)))
+
+def makemhssesuaikelas(L, kelas): # Fungsi untuk mengelompokkan mahasiswa berdasarkan kelas tertentu
+    if IsEmpty(L):
+        return []  # Basis: jika list kosong, kembalikan list kosong
+    if getKelas(getFirstMhs(L)) == kelas:
+        return [getFirstMhs(L)] + makemhssesuaikelas(Tail(L), kelas) # Jika kelas mahasiswa pertama sesuai dengan kelas yang dicari
+    else:
+        return makemhssesuaikelas(Tail(L), kelas) # Jika kelas mahasiswa pertama tidak sesuai, lanjutkan ke mahasiswa berikutnya
+
     
 # Bagian 2
 # Nomor 1
@@ -88,7 +119,29 @@ print(
     )
 )
 # B (MAHASISWA YANG LULUS)
-
+def MhsLulus(H):
+    if IsEmpty(H):
+        return []
+    else:
+        if AvgElmt(getNilai(FirstElmt(H))) >= 70:
+            return Konso(FirstElmt(H),MhsLulus(Tail(H)))
+        else:
+            return MhsLulus(Tail(H))
+# Aplikasi
+print(
+    MhsLulus(
+        [
+            MakeMhs("001", "Andi", "C", [90, 90, 90, 95]),
+            MakeMhs("011", "Budi", "C", [60, 50, 70, 85, 72]),
+            MakeMhs("003", "Caca", "B", [80, 90]),
+            MakeMhs("004", "Doni", "C", []),
+            MakeMhs("001", "Eko", "A", []),
+            MakeMhs("005", "Fira", "B", [80, 92]),
+            MakeMhs("003", "Gatot", "A", []),
+            MakeMhs("007", "Hima", "C", []),
+        ]
+    )
+)
 
 
 # C (MAHASISWA YANG TIDAK MENGERJAKAN KUIS)
@@ -104,7 +157,6 @@ def TdkMngrjknKuis(L):
 print("Mahasiswa yang tidak mengerjakan kuis:", TdkMngrjknKuis(([MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([])), MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90]))])))
 
 # D (NILAI TERTINGGI (SEMUA KELAS))
-
 # Fungsi untuk mendapatkan mahasiswa dengan nilai tertinggitanpa 
 def NilaiTertinggi(L):
     if IsEmpty(L):
@@ -115,22 +167,80 @@ def NilaiTertinggi(L):
     else:
         # Lanjutkan ke mahasiswa berikutnya jika nilai tidak sama dengan nilai tertinggi
         return NilaiTertinggi(Tail(L))
+        
 # Aplikasi
 print("Mahasiswa dengan nilai tertinggi:", NilaiTertinggi(([MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([85])), MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90]))])))
 
 
 # E (NILAI TERTINGGI (KELAS TERTENTU))
+def Nilaitertinggisesuaikelas(L, kelas):
+    if IsEmpty(L):
+        return []  # Basis: jika list kosong, kembalikan list kosong
+    elif getKelas(getFirstMhs(L)) == kelas:
+        mahasiswakelastsb = makemhssesuaikelas(L, kelas) #kelompokkan mahasiswa sesuai kelas
+        return NilaiTertinggi(mahasiswakelastsb) #Ambil mahasiswa dengan nilai tertinggi
+    else:
+        return Nilaitertinggisesuaikelas(Tail(L), kelas) # Jika kelas tidak sesuai, lanjutkan dengan mahasiswa berikutnya
+
+# Aplikasi
+print( makemhssesuaikelas([
+    MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([85])), 
+    MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90])),
+    MakeMhs('24060124120034', 'Andi', 'A', makeNilai([95]))
+], 'B'))
+
+print("Mahasiswa dengan nilai tertinggi di kelas B", Nilaitertinggisesuaikelas([
+    MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([85])), 
+    MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90])),
+    MakeMhs('24060124120034', 'Andi', 'A', makeNilai([95]))
+], 'B'))
 
 
 
 
 # F (JUMLAH MAHASISWA TIDAK KUIS (SEMUA KELAS))
+def JumlahMahasiswaTidakKuis(L):
+    if IsEmpty(L):
+        return 0 # Basis : jika list kosong kembalikan 0
+    elif getNilai(getFirstMhs(L)) == [] : #Mengecek apakah mahasiswa pertama sudah mengerjakan kuis
+        return 1 + JumlahMahasiswaTidakKuis(Tail(L)) 
+    else :
+        return JumlahMahasiswaTidakKuis(Tail(L)) #Jika mahasiswa pertama sudah mengerjakan kuis, lanjutkan dengan mahasiswa berikutnya
 
-
+# Aplikasi
+print(JumlahMahasiswaTidakKuis([
+    MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([])),
+    MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90])),
+    MakeMhs('24060124120034', 'Andi', 'A', makeNilai([])),
+    MakeMhs('24060124120035', 'Budi', 'C', makeNilai([])),
+    MakeMhs('24060124120036', 'Cici', 'D', makeNilai([])),
+    MakeMhs('24060124120037', 'Dina', 'E', makeNilai([]))
+]))
 
 
 # G (JUMLAH MAHASISWA LULUS (SEMUA KELAS))
-
-
+def BanyakLulus(H):
+    if IsEmpty(H):
+        return 0
+    else:
+        if AvgElmt(getNilai(FirstElmt(H))) >= 70:
+            return 1 + BanyakLulus(Tail(H))
+        else:
+            return BanyakLulus(Tail(H))
+# Aplikasi
+print(
+    BanyakLulus(
+        [
+            MakeMhs("001", "Andi", "C", [90, 90, 90, 95]),
+            MakeMhs("011", "Budi", "C", [60, 50, 70, 85, 72]),
+            MakeMhs("003", "Caca", "B", [80, 90]),
+            MakeMhs("004", "Doni", "C", []),
+            MakeMhs("001", "Eko", "A", []),
+            MakeMhs("005", "Fira", "B", [80, 92]),
+            MakeMhs("003", "Gatot", "A", []),
+            MakeMhs("007", "Hima", "C", []),
+        ]
+    )
+)
 
 
