@@ -78,6 +78,15 @@ print(
         ],
     )
 )
+print(
+    MakeSpecialSetMhs(
+        MakeMhs(24060124120014, "Woof", "F", makeNilai([90, 100, 80])),
+        [
+            MakeMhs(24060124120014, "Mooo", "F", makeNilai([90, 100, 80])),
+            MakeMhs(24060124120015, "Quack", "F", makeNilai([90, 100, 80])),
+        ],
+    )
+)
 # B (MAHASISWA YANG LULUS)
 
 
