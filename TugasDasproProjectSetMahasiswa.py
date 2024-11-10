@@ -32,7 +32,6 @@ def Tail(L):
     else: 
         return L[1:]
     
-# Fungsi antara untuk memrposes fungsi Nilai_Tertinggi
 def MaxElmt(L):
     if IsEmpty(L):  # Basis: Jika list mahasiswa kosong, kembalikan nilai 0
         return 0
@@ -61,6 +60,7 @@ def getLastMhs(set): # Selektor untuk mengambil lst mahasiswa terakhir dari set 
 
 
 # Nomor 2
+# A (SET OF MAHASISWA DENGAN SYARAT)
 def MakeSpecialSetMhs(B, L): # Membuat set Mahasiswa dimana terdiri dari gabungan mahasiswa dengan NIM yang unik
     if IsEmpty(L):
         return Konso(B, L)
@@ -68,7 +68,21 @@ def MakeSpecialSetMhs(B, L): # Membuat set Mahasiswa dimana terdiri dari gabunga
         return "Duplicate NIM " + "returning " + str(L)
     else:
         return Konso(MakeSpecialSetMhs(B, Tail(L)),getFirstMhs(L))
-    
+# Aplikasi
+print(
+    MakeSpecialSetMhs(
+        MakeMhs(24060124120011, "Rawr", "F", makeNilai([90, 100, 80])),
+        [
+            MakeMhs(24060124120014, "Mooo", "F", makeNilai([90, 100, 80])),
+            MakeMhs(24060124120015, "Quack", "F", makeNilai([90, 100, 80])),
+        ],
+    )
+)
+# B (MAHASISWA YANG LULUS)
+
+
+
+# C (MAHASISWA YANG TIDAK MENGERJAKAN KUIS)
 def TdkMngrjknKuis(L):
     if IsEmpty(L):  # Jika list mahasiswa kosong, kembalikan list kosong
         return []
@@ -77,9 +91,10 @@ def TdkMngrjknKuis(L):
         return MakeSpecialSetMhs(getFirstMhs(L), TdkMngrjknKuis(Tail(L)))  # Tambahkan mahasiswa ke hasil dan lanjutkan
     else:
         return TdkMngrjknKuis(Tail(L))  # Jika mahasiswa mengerjakan kuis, lanjutkan ke elemen berikutnya tanpa menambahkannya ke hasil
-
+# Aplikasi
 print("Mahasiswa yang tidak mengerjakan kuis:", TdkMngrjknKuis(([MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([])), MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90]))])))
 
+# D (NILAI TERTINGGI (SEMUA KELAS))
 
 # Fungsi untuk mendapatkan mahasiswa dengan nilai tertinggitanpa 
 def NilaiTertinggi(L):
@@ -91,22 +106,22 @@ def NilaiTertinggi(L):
     else:
         # Lanjutkan ke mahasiswa berikutnya jika nilai tidak sama dengan nilai tertinggi
         return NilaiTertinggi(Tail(L))
-    
+# Aplikasi
 print("Mahasiswa dengan nilai tertinggi:", NilaiTertinggi(([MakeMhs('24060124120032', 'Dewangga Maulana Saputro', 'B', makeNilai([85])), MakeMhs('24060124120033', 'Dhimas Rheza', 'B', makeNilai([90]))])))
 
 
+# E (NILAI TERTINGGI (KELAS TERTENTU))
 
 
 
 
-# Contoh Aplikasi SetMhs
-print(
-    MakeSpecialSetMhs(
-        MakeMhs(24060124120011, "Rawr", "F", makeNilai([90, 100, 80])),
-        [
-            MakeMhs(24060124120014, "Mooo", "F", makeNilai([90, 100, 80])),
-            MakeMhs(24060124120015, "Quack", "F", makeNilai([90, 100, 80])),
-        ],
-    )
-)
+# F (JUMLAH MAHASISWA TIDAK KUIS (SEMUA KELAS))
+
+
+
+
+# G (JUMLAH MAHASISWA LULUS (SEMUA KELAS))
+
+
+
 
